@@ -3,6 +3,10 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import AuthSessionProvider from "@/app/components/AuthSessionProvider";
 import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import { Grid } from "@mui/material";
+import TopNavBar from "./components/TopNavBar";
+import SideNavBar from "./components/SIdeNavBar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -16,10 +20,38 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await getServerSession();
+  if (!session) {
+    redirect("/api/auth/signin");
+  }
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AuthSessionProvider session={session}>{children}</AuthSessionProvider>
+        <AuthSessionProvider session={session}>
+          <Grid container>
+            <Grid
+              item
+              md={12}
+              sx={{
+                borderBottom: "1px solid silver",
+              }}
+            >
+              <TopNavBar />
+            </Grid>
+            <Grid
+              item
+              md={2}
+              sx={{
+                borderRight: "1px solid silver",
+              }}
+              minHeight={"100vh"}
+            >
+              <SideNavBar />
+            </Grid>
+          </Grid>
+          <Grid item md={10}>
+            {children}
+          </Grid>
+        </AuthSessionProvider>
       </body>
     </html>
   );
