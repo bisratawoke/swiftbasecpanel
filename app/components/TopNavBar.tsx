@@ -13,7 +13,6 @@ export default function TopNavBar() {
     >
       <Toolbar>
         <Box alignItems={"center"} justifyContent={"center"}>
-          {/* <SpeedDialIcon /> */}
           <Typography
             sx={{
               fontSize: "25px",

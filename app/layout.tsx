@@ -26,32 +26,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AuthSessionProvider session={session}>
-          <Grid container>
-            <Grid
-              item
-              md={12}
-              sx={{
-                borderBottom: "1px solid silver",
-              }}
-            >
-              <TopNavBar />
-            </Grid>
-            <Grid
-              item
-              md={2}
-              sx={{
-                borderRight: "1px solid silver",
-              }}
-              minHeight={"100vh"}
-            >
-              <SideNavBar />
-            </Grid>
-          </Grid>
-          <Grid item md={10}>
-            {children}
-          </Grid>
-        </AuthSessionProvider>
+        <AuthSessionProvider session={session}>{children}</AuthSessionProvider>
       </body>
     </html>
   );
