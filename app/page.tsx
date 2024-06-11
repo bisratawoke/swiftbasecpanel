@@ -1,13 +1,5 @@
 import FetchProjects from "@/app/actions/FetchProjects";
-import {
-  Box,
-  Card,
-  CardContent,
-  CardHeader,
-  Grid,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
 import CreateProjectCard from "@/app/components/CreateProjectCard";
 export default async function Home() {
   const projects: Array<{
