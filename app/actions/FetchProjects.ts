@@ -1,5 +1,22 @@
 "use server";
 
 export default async function FetchProjects() {
-  return [];
+  return [
+    {
+      projectName: "Google",
+      projectId: "2sdfsdfsfrsdc",
+    },
+    {
+      projectName: "Google",
+      projectId: "2sdfsdfsfrsdc",
+    },
+    {
+      projectName: "Google",
+      projectId: "2sdfsdfsfrsdc",
+    },
+    {
+      projectName: "Google",
+      projectId: "2sdfsdfsfrsdc",
+    },
+  ];
 }
