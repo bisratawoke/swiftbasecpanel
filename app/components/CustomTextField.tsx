@@ -8,6 +8,8 @@ export default function CustomTextField({ label, ...props }: any) {
   const { setFieldValue } = useFormikContext();
   return (
     <TextField
+      multiline={props.multiline}
+      rows={props.rows}
       label={label}
       value={field.value}
       name={props.name}

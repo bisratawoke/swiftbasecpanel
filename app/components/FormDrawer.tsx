@@ -17,9 +17,7 @@ export default function FormDrawer({
       anchor="right"
       open={open}
       onClose={() => setOpen(false)}
-      sx={{
-        width: "400px",
-      }}
+      PaperProps={{ style: { width: "40vw" } }}
     >
       {children}
     </Drawer>
