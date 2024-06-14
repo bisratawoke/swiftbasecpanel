@@ -1,17 +1,9 @@
 "use server";
 
-[
-  { title: "Web Development" },
-  { title: "Graphic Design" },
-  { title: "SEO" },
-  { title: "Content Writing" },
-  { title: "Digital Marketing" },
-  // Add more services as needed
-];
 export async function FetchService() {
   return [
-    { title: "Static Content Hosting" },
-    { title: "Serverless Functions" },
-    { title: "Nosql database" },
+    { id: "1", title: "Static Content Hosting" },
+    { id: "2", title: "Serverless Functions" },
+    { id: "3", title: "Nosql database" },
   ];
 }
