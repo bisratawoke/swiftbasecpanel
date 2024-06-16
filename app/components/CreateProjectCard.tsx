@@ -1,11 +1,13 @@
 "use client";
 import { Box, Card, CardContent, Stack, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FormDrawer from "./FormDrawer";
 import CreateProjectForm from "../Forms/CreateProjectForm";
+import { useSession } from "next-auth/react";
 export default function CreateProjectCard() {
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
+  const { data: session } = useSession();
   return (
     <Card sx={{}}>
       <CardContent

@@ -6,7 +6,7 @@ export default function CustomAutocomplete({ options, ...props }: any) {
   const [field, meta, helpers] = useField(props.name);
 
   const handleChange = (event: any, value: any) => {
-    helpers.setValue(value); // Set the Formik field value
+    helpers.setValue(value);
   };
 
   return (
