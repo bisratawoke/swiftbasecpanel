@@ -1,11 +1,34 @@
-import FetchProjects from "@/app/actions/FetchProjects";
-import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
+import {
+  Backdrop,
+  Box,
+  Card,
+  CardContent,
+  CircularProgress,
+  Grid,
+  Typography,
+} from "@mui/material";
 import CreateProjectCard from "@/app/components/CreateProjectCard";
+import { getServerSession } from "next-auth";
+import { AuthOptions } from "./api/auth/[...nextauth]/route";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 export default async function Home() {
+  const session = await getServerSession(AuthOptions);
+
+  const res = await fetch(`${process.env.BACKEND_API}/project`, {
+    headers: {
+      Authorization: `Bearer ${session.access_token}`,
+    },
+  });
+  if (!(res.status == 200)) {
+    throw new Error("something went wrong");
+  }
+
   const projects: Array<{
     projectName: string;
     projectId: string;
-  }> = await FetchProjects();
+  }> = await res.json();
+
   return (
     <Box>
       <Box

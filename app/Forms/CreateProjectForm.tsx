@@ -18,6 +18,7 @@ import createProjectFormValidator from "./validators/createProjectFormValidator"
 import CustomLoadingButton from "../components/CustomLoadingButton";
 import Fade from "@mui/material/Fade";
 import { FORM_STATUS } from "@/app/Forms/FormStatus";
+import { useSession } from "next-auth/react";
 
 export default function CreateProjectForm() {
   const [services, setServices] = useState<any>([]);
@@ -25,6 +26,7 @@ export default function CreateProjectForm() {
   const [formStatusMessage, setFormStatusMessage] = useState<string | null>(
     null
   );
+  const { data: session } = useSession();
   useEffect(() => {
     FetchService()
       .then((res) => setServices(res))
@@ -38,7 +40,15 @@ export default function CreateProjectForm() {
         services: "",
       }}
       validationSchema={createProjectFormValidator()}
-      onSubmit={(values, { setSubmitting }) => {}}
+      onSubmit={async (values, { setSubmitting }) => {
+        setSubmitting(true);
+        const result = await fetch("/api/project", {
+          method: "POST",
+          body: JSON.stringify({
+            project_name: values.name,
+          }),
+        });
+      }}
     >
       {({ handleSubmit, isSubmitting }) => (
         <Box
