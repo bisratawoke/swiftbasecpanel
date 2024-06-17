@@ -1,50 +1,50 @@
 import NextAuth from "next-auth/next";
-import Google from "next-auth/providers/google";
-import Github from "next-auth/providers/github";
 import Credentials from "next-auth/providers/credentials";
 
 export const AuthOptions = {
+  pages: {
+    signIn: "/auth/login",
+  },
   providers: [
     Credentials({
-      name: "Credentials",
+      name: "credentials",
       credentials: {
-        email: {
-          label: "Email",
-          type: "text",
-          placeholder: "Enter your email",
-        },
-        password: {
-          label: "Password",
-          type: "password",
-          placeholder: "Enter your password",
-        },
+        email: {},
+        password: {},
       },
-      async authorize(cred, req) {
-        const user = {
-          id: "user-id",
-          token: "my-custom-token",
-        };
-        return user;
+      async authorize(creds, req) {
+        const result = await fetch(`${process.env.BACKEND_API}/auth/`, {
+          headers: {
+            "content-type": "application/json",
+          },
+          method: "POST",
+          body: JSON.stringify({
+            email: creds?.email,
+            password: creds?.password,
+          }),
+        });
+
+        if (!(result?.status == 201)) {
+          return null;
+        } else {
+          const res = await result.json();
+          return {
+            id: "",
+            access_token: res.access_token,
+          };
+        }
       },
-    }),
-    Github({
-      clientId: String(process.env.GITHUB_CLIENT_ID),
-      clientSecret: String(process.env.GITHUB_SECRET),
-    }),
-    Google({
-      clientId: String(process.env.GOOGLE_CLIENT_ID),
-      clientSecret: String(process.env.GOOGLE_SECRET),
     }),
   ],
   callbacks: {
     async jwt({ token, user }: any) {
       if (user) {
-        token.token = user.token;
+        token.access_token = user.access_token;
       }
       return token;
     },
     async session({ session, token }: any) {
-      session.token = token.token;
+      session.access_token = token.access_token;
       return session;
     },
   },

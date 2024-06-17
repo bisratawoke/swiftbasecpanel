@@ -11,6 +11,7 @@ import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 export default function TopNavBar() {
   const { data: session } = useSession();
+  console.log(session);
   return (
     <AppBar
       position="static"
@@ -38,7 +39,7 @@ export default function TopNavBar() {
               backgroundColor: "#7B1FA2",
             }}
           >
-            {session?.user?.name?.split("")[0]}
+            {/* {session?.user?.name?.split("")[0]} */}
           </Avatar>
         </Box>
       </Toolbar>
