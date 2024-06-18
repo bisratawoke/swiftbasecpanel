@@ -18,8 +18,6 @@ export async function POST(req: Request) {
     }),
   };
 
-  console.log(opts);
-
   const res = await fetch(`${process.env.BACKEND_API}/project/service`, opts);
   const result = await res.json();
   return NextResponse.json({ status: res.status });

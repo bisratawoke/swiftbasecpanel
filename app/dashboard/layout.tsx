@@ -6,7 +6,7 @@ export default function Layout({ children }: any) {
   return (
     <>
       <Grid container>
-        <Grid
+        {/* <Grid
           item
           md={12}
           sx={{
@@ -14,7 +14,7 @@ export default function Layout({ children }: any) {
           }}
         >
           <TopNavBar />
-        </Grid>
+        </Grid> */}
         <Grid
           item
           md={2}
