@@ -9,7 +9,6 @@ import {
   Typography,
 } from "@mui/material";
 import { Formik } from "formik";
-import * as yup from "yup";
 import CustomTextField from "@/app/components/CustomTextField";
 import { useEffect, useState } from "react";
 import { FetchService } from "../actions/FetchServices";
@@ -19,14 +18,15 @@ import CustomLoadingButton from "../components/CustomLoadingButton";
 import Fade from "@mui/material/Fade";
 import { FORM_STATUS } from "@/app/Forms/FormStatus";
 import { useSession } from "next-auth/react";
-
+import { useRouter } from "next/navigation";
 export default function CreateProjectForm() {
   const [services, setServices] = useState<any>([]);
   const [formStatus, setFormStatus] = useState<FORM_STATUS | null>(null);
   const [formStatusMessage, setFormStatusMessage] = useState<string | null>(
     null
   );
-  const { data: session } = useSession();
+  const router = useRouter();
+
   useEffect(() => {
     FetchService()
       .then((res) => setServices(res))
@@ -48,6 +48,7 @@ export default function CreateProjectForm() {
           body: JSON.stringify(values),
         });
         const res = await result.json();
+
         //TODO: check status and if its not 201 then throw an error
         const createServicesPayload = {
           projectId: res.message.id,
@@ -59,7 +60,6 @@ export default function CreateProjectForm() {
             }
           ),
         };
-        console.log(createServicesPayload);
         result = await fetch("/api/service", {
           method: "POST",
           body: JSON.stringify(createServicesPayload),
@@ -67,6 +67,10 @@ export default function CreateProjectForm() {
         setSubmitting(false);
         setFormStatus(FORM_STATUS.SUCCESS);
         setFormStatusMessage("Successfully created");
+        setTimeout(() => {
+          localStorage.setItem("currentProject", res.message.id);
+          router.push("/dashboard");
+        }, 2000);
       }}
     >
       {({ handleSubmit, isSubmitting }) => (

@@ -17,6 +17,7 @@ export default function TopNavBar() {
       elevation={0}
       sx={{
         backgroundColor: "white",
+        borderBottom: "1px solid silver",
       }}
     >
       <Toolbar>
