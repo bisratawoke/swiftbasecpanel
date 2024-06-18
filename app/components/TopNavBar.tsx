@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useSession } from "next-auth/react";
-import { useEffect } from "react";
+
 export default function TopNavBar() {
   const { data: session } = useSession();
   return (

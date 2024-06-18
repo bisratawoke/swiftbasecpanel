@@ -12,6 +12,7 @@ import { getServerSession } from "next-auth";
 import { AuthOptions } from "./api/auth/[...nextauth]/route";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import ProjectCard from "./components/ProjectCard";
 export default async function Home() {
   const session = await getServerSession(AuthOptions);
 
@@ -42,6 +43,7 @@ export default async function Home() {
         alignItems="center"
         sx={{
           marginBottom: "32px",
+          marginTop: "32px",
         }}
       >
         <Typography
@@ -66,30 +68,7 @@ export default async function Home() {
         </Grid>
         {projects.map((project, indx) => (
           <Grid key={indx} item md={3}>
-            <Card>
-              <CardContent
-                sx={{
-                  spacing: "8px",
-                  height: "150px",
-                }}
-              >
-                <Typography
-                  sx={{
-                    fontSize: "20px",
-                    color: "black",
-                  }}
-                >
-                  {project.projectName}
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: "14px",
-                  }}
-                >
-                  {project.projectId}
-                </Typography>
-              </CardContent>
-            </Card>
+            <ProjectCard project={project} />
           </Grid>
         ))}
       </Grid>
