@@ -24,10 +24,15 @@ export default async function Home() {
     throw new Error("something went wrong");
   }
 
+  const result = await res.json();
+
   const projects: Array<{
     projectName: string;
     projectId: string;
-  }> = await res.json();
+  }> = result.map((res: any) => ({
+    projectName: res.project_name,
+    projectId: res.id,
+  }));
 
   return (
     <Box>

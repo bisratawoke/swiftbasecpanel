@@ -37,17 +37,39 @@ export default function CreateProjectForm() {
       initialValues={{
         name: "",
         description: "",
-        services: "",
+        services: [],
       }}
       validationSchema={createProjectFormValidator()}
       onSubmit={async (values, { setSubmitting }) => {
         setSubmitting(true);
-        const result = await fetch("/api/project", {
+        console.log(values);
+        let result = await fetch("/api/project", {
           method: "POST",
-          body: JSON.stringify({
-            project_name: values.name,
-          }),
+          body: JSON.stringify(values),
         });
+
+        const res = await result.json();
+
+        //TODO: check status and if its not 201 then throw an error
+
+        const createServicesPayload = {
+          projectId: res.message.id,
+          services: values.services.map(
+            (service: { id: string; title: string }) => {
+              if (service.title.includes("static")) return "STATIC_HOSTING";
+              else if (service.title.includes("Serverless")) return "LAMBDA";
+              else return "SWIFTBASE_DB";
+            }
+          ),
+        };
+
+        console.log(createServicesPayload);
+        result = await fetch("/api/service", {
+          method: "POST",
+          body: JSON.stringify(createServicesPayload),
+        });
+
+        console.log(result.status);
       }}
     >
       {({ handleSubmit, isSubmitting }) => (
