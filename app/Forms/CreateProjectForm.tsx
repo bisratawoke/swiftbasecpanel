@@ -42,16 +42,13 @@ export default function CreateProjectForm() {
       validationSchema={createProjectFormValidator()}
       onSubmit={async (values, { setSubmitting }) => {
         setSubmitting(true);
-        console.log(values);
+
         let result = await fetch("/api/project", {
           method: "POST",
           body: JSON.stringify(values),
         });
-
         const res = await result.json();
-
         //TODO: check status and if its not 201 then throw an error
-
         const createServicesPayload = {
           projectId: res.message.id,
           services: values.services.map(
@@ -62,14 +59,14 @@ export default function CreateProjectForm() {
             }
           ),
         };
-
         console.log(createServicesPayload);
         result = await fetch("/api/service", {
           method: "POST",
           body: JSON.stringify(createServicesPayload),
         });
-
-        console.log(result.status);
+        setSubmitting(false);
+        setFormStatus(FORM_STATUS.SUCCESS);
+        setFormStatusMessage("Successfully created");
       }}
     >
       {({ handleSubmit, isSubmitting }) => (
