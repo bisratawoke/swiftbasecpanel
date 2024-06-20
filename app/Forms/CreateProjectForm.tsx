@@ -17,8 +17,8 @@ import createProjectFormValidator from "./validators/createProjectFormValidator"
 import CustomLoadingButton from "../components/CustomLoadingButton";
 import Fade from "@mui/material/Fade";
 import { FORM_STATUS } from "@/app/Forms/FormStatus";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+
 export default function CreateProjectForm() {
   const [services, setServices] = useState<any>([]);
   const [formStatus, setFormStatus] = useState<FORM_STATUS | null>(null);

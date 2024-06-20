@@ -11,8 +11,11 @@ import CreateProjectCard from "@/app/components/CreateProjectCard";
 import { getServerSession } from "next-auth";
 import { AuthOptions } from "./api/auth/[...nextauth]/route";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import ProjectCard from "./components/ProjectCard";
+import { ChildrenCenterAlignedBackdrop } from "./components/ChildrenCenterAlignedBackdrop";
+import ProjectList from "./components/ProjectLists";
+
 export default async function Home() {
   const session = await getServerSession(AuthOptions);
 
@@ -66,11 +69,7 @@ export default async function Home() {
         <Grid item md={3}>
           <CreateProjectCard />
         </Grid>
-        {projects.map((project, indx) => (
-          <Grid key={indx} item md={3}>
-            <ProjectCard project={project} />
-          </Grid>
-        ))}
+        <ProjectList projects={projects} />
       </Grid>
     </Box>
   );

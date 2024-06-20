@@ -3,11 +3,19 @@ import {
   AppBar,
   Avatar,
   Box,
+  Button,
+  ButtonProps,
   SpeedDialIcon,
   Toolbar,
   Typography,
+  styled,
 } from "@mui/material";
+import { pink } from "@mui/material/colors";
 import { useSession } from "next-auth/react";
+
+const StyledButton = styled(Button)<ButtonProps>(({ theme }) => ({
+  color: pink[500],
+}));
 
 export default function TopNavBar() {
   const { data: session } = useSession();
@@ -17,12 +25,12 @@ export default function TopNavBar() {
       elevation={0}
       sx={{
         backgroundColor: "white",
-        borderBottom: "1px solid silver",
+        // borderBottom: "1px solid silver",
       }}
     >
       <Toolbar>
         <Box alignItems={"center"} justifyContent={"center"} flexGrow={1}>
-          <Typography
+          {/* <Typography
             sx={{
               fontSize: "25px",
               fontFamily: "Helvetica",
@@ -31,7 +39,7 @@ export default function TopNavBar() {
             }}
           >
             Cpanel
-          </Typography>
+          </Typography> */}
         </Box>
         <Box alignItems="center" justifyContent={"center"}>
           <Avatar

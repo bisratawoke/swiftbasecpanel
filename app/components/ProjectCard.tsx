@@ -3,11 +3,12 @@ import { Card, CardContent, CardHeader, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { setCurrentProjectIdInLocalStorage } from "@/app/utils/utils";
 
-export default function ProjectCard({ project }: any) {
+export default function ProjectCard({ project, setOpenBackdrop }: any) {
   const router = useRouter();
   return (
     <Card
       onClick={() => {
+        setOpenBackdrop(true);
         setCurrentProjectIdInLocalStorage(project.projectId);
         router.push("/dashboard");
       }}
