@@ -1,20 +1,46 @@
-import { Card, CardHeader, Typography } from "@mui/material";
+"use client";
+import { Card, CardContent, CardHeader, Typography } from "@mui/material";
+import { useRouter } from "next/navigation";
+import { setCurrentProjectIdInLocalStorage } from "@/app/utils/utils";
 
-export default function ProjectCard() {
+export default function ProjectCard({ project, setOpenBackdrop }: any) {
+  const router = useRouter();
   return (
     <Card
+      onClick={() => {
+        setOpenBackdrop(true);
+        setCurrentProjectIdInLocalStorage(project.projectId);
+        router.push("/dashboard");
+      }}
       sx={{
-        height: "200px",
+        "&:hover": {
+          scale: "1.01",
+          cursor: "pointer",
+        },
       }}
     >
-      <CardHeader>
-        <Typography sx={{ fontSize: "22px" }} gutterBottom>
-          header
+      <CardContent
+        sx={{
+          spacing: "8px",
+          height: "150px",
+        }}
+      >
+        <Typography
+          sx={{
+            fontSize: "20px",
+            color: "black",
+          }}
+        >
+          {project.projectName}
         </Typography>
-        <Typography sx={{ fontSize: "14px" }} gutterBottom>
-          subheader
+        <Typography
+          sx={{
+            fontSize: "14px",
+          }}
+        >
+          {project.projectId}
         </Typography>
-      </CardHeader>
+      </CardContent>
     </Card>
   );
 }
